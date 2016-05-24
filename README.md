@@ -2,7 +2,7 @@
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](miau.users.cs.helsinki.fi/pizza)
+* [Linkki sovellukseeni](http://miau.users.cs.helsinki.fi/pizza)
 * [Linkki dokumentaatiooni](https://github.com/miau1/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 
 ## Työn aihe
