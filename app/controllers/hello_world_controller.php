@@ -9,7 +9,11 @@ class HelloWorldController extends BaseController {
 
     public static function sandbox() {
         // Testaa koodiasi täällä
-        View::make('helloworld.html');
+        $pepperoni = Tuote::find(1);
+        $tuotteet = Tuote::all();
+        
+        Kint::dump($pepperoni);
+        Kint::dump($tuotteet);
     }
 
     public static function tuotelista() {

@@ -12,9 +12,9 @@ Yleisiä linkkejä:
 ## Linkkejä sovelluksen eri sivuille:
 
 * [Etusivu](http://miau.users.cs.helsinki.fi/pizza)
-* [Pizzojen listaus](http://miau.users.cs.helsinki.fi/pizza/tuote)
-* [Pizzan esittely](http://miau.users.cs.helsinki.fi/pizza/tuote/1)
-* [Pizzan muokkaus](http://miau.users.cs.helsinki.fi/pizza/tuote/1/muokkaa)
-* [Pizzan lisays](http://miau.users.cs.helsinki.fi/pizza/tuote/lisaa)
+* [Tuotteiden listaus](http://miau.users.cs.helsinki.fi/pizza/tuote)
+* [Tuotteen esittely](http://miau.users.cs.helsinki.fi/pizza/tuote/1)
+* [Tuotteen muokkaus](http://miau.users.cs.helsinki.fi/pizza/tuote/1/muokkaa)
+* [Tuotteen lisäys](http://miau.users.cs.helsinki.fi/pizza/tuote/lisaa)
 * [Kirjautuminen](http://miau.users.cs.helsinki.fi/pizza/login)
 
