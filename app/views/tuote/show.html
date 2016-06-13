@@ -1,14 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
+{% import "macros/forms.html" as forms %}
 
+{% if message %}
 <div class="alert alert-success">
     {{message}}
 </div>
+{% endif %}
 
 <h1>{{tuote.pname}}</h1>
+
+{% if user_logged_in %}
 <p>
-    <button class="btn btn-danger">Poista</button> <a href="{{tuote.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
+    {{forms.destroy_button("#{base_path}/tuote/#{tuote.id}/poista")}}
+    <a href="{{tuote.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
 </p>
+{% endif %}
 
 <ul>
     <li><strong>Numero</strong> {{tuote.pnumber}}</li>

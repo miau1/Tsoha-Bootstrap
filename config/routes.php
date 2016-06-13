@@ -20,16 +20,27 @@ $routes->get('/tuote/lisaa', function() {
     TuoteController::create();
 });
 
-
 $routes->get('/tuote/:id', function($id) {
     TuoteController::show($id);
 });
 
-$routes->get('/tuote/1/muokkaa', function() {
-    HelloWorldController::muokkaa();
+$routes->get('/tuote/:id/muokkaa', function($id) {
+    TuoteController::edit($id);
+});
+
+$routes->post('/tuote/:id/muokkaa', function($id) {
+    TuoteController::update($id);
+});
+
+$routes->post('/tuote/:id/poista', function($id) {
+    TuoteController::destroy($id);
 });
 
 $routes->get('/login', function() {
-    HelloWorldController::kirjaudu();
+    UserController::login();
+});
+
+$routes->post('/login', function() {
+    UserController::handle_login();
 });
 

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Lisää uusi tuote</h1>
+<h1>Muokkaa tuotetta</h1>
 
 {% if errors %}
 <div class="alert alert-danger">
@@ -12,7 +12,7 @@
 </div>
 {% endif %}
 
-<form method="post" action="{{base_path}}/tuote">
+<form method="post" action="{{base_path}}/tuote/{{attributes.id}}/muokkaa">
     <div class="form-group">
         <label>Numero</label>
         <input class="form-control" type="text" name="pnumber" value="{{attributes.pnumber}}">
@@ -34,7 +34,7 @@
         <input class="form-control" type="text" name="ptype" value="{{attributes.ptype}}">
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Lisää tuote</button>
+        <button type="submit" class="btn btn-primary">Tallenna</button>
     </div>
 </form>
 {% endblock %}

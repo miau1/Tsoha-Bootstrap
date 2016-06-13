@@ -43,6 +43,9 @@
           </ul>
             
           <ul class="nav navbar-nav navbar-right">
+            {% if user_logged_in %}
+            <li><a>Työntekijä "{{user_logged_in.fullname}}" kirjautunut</a></li>
+            {% endif %}
             <li><a href="/pizza/login">Kirjaudu sisään</a></li>
           </ul>
         </div>

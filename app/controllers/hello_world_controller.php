@@ -9,30 +9,36 @@ class HelloWorldController extends BaseController {
 
     public static function sandbox() {
         // Testaa koodiasi täällä
-        $pepperoni = Tuote::find(1);
-        $tuotteet = Tuote::all();
+        $pizza = new Tuote(array(
+            'pnumber' => 5,
+            'pname' => 'p',
+            'price' => 7,
+            'description' => 'll',
+            'ptype' => 'pi'
+        ));
+        $errors = $pizza->errors();
         
-        Kint::dump($pepperoni);
-        Kint::dump($tuotteet);
+        Kint::dump($errors);
     }
 
     public static function tuotelista() {
         View::make('suunnitelmat/tuotelista.html');
     }
-    
+
     public static function muokkaa() {
         View::make('suunnitelmat/muokkaus.html');
     }
-    
+
     public static function lisaa() {
         View::make('suunnitelmat/lisays.html');
     }
-    
+
     public static function kirjaudu() {
         View::make('suunnitelmat/kirjautuminen.html');
     }
-    
+
     public static function nayta() {
         View::make('suunnitelmat/nayta.html');
     }
+
 }

@@ -11,7 +11,8 @@ CREATE TABLE Tyontekija(
     id SERIAL PRIMARY KEY,
     fullname varchar(50) NOT NULL,
     wposition varchar(20) NOT NULL,
-    location varchar(20) NOT NULL
+    location varchar(20) NOT NULL,
+    password varchar(50) NOT NULL
 );
 
 CREATE TABLE Tuote(

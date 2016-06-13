@@ -16,5 +16,5 @@ Yleisiä linkkejä:
 * [Tuotteen esittely](http://miau.users.cs.helsinki.fi/pizza/tuote/1)
 * [Tuotteen muokkaus](http://miau.users.cs.helsinki.fi/pizza/tuote/1/muokkaa)
 * [Tuotteen lisäys](http://miau.users.cs.helsinki.fi/pizza/tuote/lisaa)
-* [Kirjautuminen](http://miau.users.cs.helsinki.fi/pizza/login)
+* [Kirjautuminen](http://miau.users.cs.helsinki.fi/pizza/login), käyttäjätunnus = "työ", salasana = "lol"
 
