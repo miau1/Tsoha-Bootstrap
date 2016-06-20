@@ -11,14 +11,26 @@ class HelloWorldController extends BaseController {
         // Testaa koodiasi täällä
         $pizza = new Tuote(array(
             'pnumber' => 5,
-            'pname' => 'p',
+            'pname' => 'pas',
             'price' => 7,
-            'description' => 'll',
-            'ptype' => 'pi'
+            'description' => 'llasd',
+            'ptype' => 'pizza'
         ));
+        $pizza->save();
         $errors = $pizza->errors();
         
-        Kint::dump($errors);
+        $tayte = new Tayte(array(
+            'pname' => 'sipuli',
+            'description' => 'huhuh'
+        ));
+        
+        $pizzatayte = new Pizzatayte(array(
+           'pizza_id' => $pizza->id,
+            'tayte_id' => (int)$tayte->id
+        ));
+        Kint::dump($pizza);
+        Kint::dump($tayte);
+        Kint::dump($pizzatayte);
     }
 
     public static function tuotelista() {

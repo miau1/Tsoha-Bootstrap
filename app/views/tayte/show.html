@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{tayte.pname}}</h1>
+<ul>
+    <li><strong>Kuvaus</strong> {{tayte.description}}</li>
+    <li><strong>Pizzat, joissa tämä täyte:</strong>
+        <ul>
+            {% for pizza in pizzat %}
+            <li>
+                <a href="/pizza/tuote/{{pizza.id}}">{{pizza.pname}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </li>
+</ul>
+
+{% endblock %}

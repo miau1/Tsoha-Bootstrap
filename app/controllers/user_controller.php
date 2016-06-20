@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Kontrolleri ohjaa kirjautumistoimintoja, sekä työntekijöiden listausta.
+ */
 class UserController extends BaseController{
     public static function login(){
         View::make('user/login.html');
@@ -17,6 +20,17 @@ class UserController extends BaseController{
             
             Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $user->fullname . '!'));
         }
+    }
+    
+    public static function logout(){
+        $_SESSION['user'] = null;
+        Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
+    }
+    
+    public static function index(){
+        self::check_logged_in();
+        $tyontekijat = User::all();
+        View::make('user/index.html', array('tyontekijat' => $tyontekijat));
     }
 }
 

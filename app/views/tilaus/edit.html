@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "macros/forms.html" as forms %}
+
+{% if message %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+
+<h1>Muokkaa tilausta</h1>
+
+{% if errors %}
+<div class="alert alert-danger">
+    <ul>
+        {% for error in errors %}
+        <li>{{error}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form method="post" action="{{base_path}}/tilaus/{{attributes.id}}/muokkaa">
+    <div class="form-group">
+        <label>Asiakas</label>
+        <input class="form-control" type="text" name="customer" value="{{attributes.customer}}">
+    </div>
+    <div class="form-group">
+        <label>Puhelin</label>
+        <input class="form-control" type="text" name="phone" value="{{attributes.phone}}">
+    </div>
+    <div class="form-group">
+        <label>Osoite</label>
+        <input class="form-control" type="text" name="address" value="{{attributes.address}}">
+    </div>
+    <div class="form-group">
+        <label>Tilausaika</label>
+        <input class="form-control" type="text" name="ordered" value="{{attributes.ordered}}">
+    </div>
+    <div class="form-group">
+        <label>Toimitusaika</label>
+        <input class="form-control" type="text" name="delivered" value="{{attributes.delivered}}">
+    </div>
+    <div class="form-group">
+        <label>Hinta</label>
+        <input class="form-control" type="text" name="price" value="{{attributes.price}}">
+    </div>
+    <div class="form-group">
+        <label>Ongelmat</label>
+        <input class="form-control" type="text" name="problems" value="{{attributes.problems}}">
+    </div>
+    <div class="form-group">
+        <label>Alennus</label>
+        <input class="form-control" type="text" name="discount" value="{{attributes.discount}}">
+    </div>
+    <div class="form-group">
+        <input type="hidden" name="tuotteet[]" value="0">
+    </div>
+    <div class="form-group">
+        <label>Lisää tuotteita (paina ctrl pohjaan)</label>
+        <select class="form-control" name="tuotteet[]" multiple="">
+            {% for tuote in kaikki_tuotteet %}
+            <option value="{{tuote.id}}">{{tuote.pname}}, {{tuote.price}}e</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+</form>
+<div>
+        <label>Poista tuotteita</label>
+        <ul>
+        {% for tuote in tuotteet %}
+        <li>
+            {{tuote.pname}} {{forms.destroy_button("#{base_path}/tilaustuote/#{attributes.id}/#{tuote.id}/poista")}}
+        </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

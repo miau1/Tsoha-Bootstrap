@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Työntekijät</h1>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nimi</th>
+            <th>Asema</th>
+            <th>Sijainti</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for tyontekija in tyontekijat %}
+        <tr>
+            <td>{{tyontekija.fullname}}</td>
+            <td>{{tyontekija.wposition}}</td>
+            <td>{{tyontekija.location}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

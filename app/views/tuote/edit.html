@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
+{% import "macros/forms.html" as forms %}
+
+{% if message %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+
 <h1>Muokkaa tuotetta</h1>
 
 {% if errors %}
@@ -31,10 +39,36 @@
     </div>
     <div class="form-group">
         <label>Tyyppi</label>
-        <input class="form-control" type="text" name="ptype" value="{{attributes.ptype}}">
+        <select class="form-control" name="ptype" >
+            <option>{{attributes.ptype}}</option>
+            <option>Pizza</option>
+            <option>Juoma</option>
+            <option>Muu</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="hidden" name="taytteet[]" value="0">
+    </div>
+    <div class="form-group">
+        <label>Lisää täytteitä (paina ctrl pohjaan)</label>
+        <select class="form-control" name="taytteet[]" multiple="">
+            {% for tayte in kaikki_taytteet %}
+            <option value="{{tayte.id}}">{{tayte.pname}}</option>
+            {% endfor %}
+        </select>
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Tallenna</button>
     </div>
 </form>
+<div>
+        <label>Poista täytteitä</label>
+        <ul>
+        {% for tayte in taytteet %}
+        <li>
+            {{tayte.pname}} {{forms.destroy_button("#{base_path}/pizzatayte/#{attributes.id}/#{tayte.id}/poista")}}
+        </li>
+        {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

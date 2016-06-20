@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Tilaukset</h1>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Asiakas</th>
+            <th>Puhelin</th>
+            <th>Osoite</th>
+            <th>Tilausaika</th>
+            <th>Tomitusaika</th>
+            <th>Hinta</th>
+            <th>Ongelmat</th>
+            <th>Alennus</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for tilaus in tilaukset %}
+        <tr>
+            <td><a href="{{base_path}}/tilaus/{{tilaus.id}}">Näytä</td>
+            <td>{{tilaus.customer}}</td>
+            <td>{{tilaus.phone}}</td>
+            <td>{{tilaus.address}}</td>
+            <td>{{tilaus.ordered}}</td>
+            <td>{{tilaus.delivered}}</td>
+            <td>{{tilaus.price}}</td>
+            <td>{{tilaus.problems}}</td>
+            <td>{{tilaus.discount}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

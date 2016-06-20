@@ -22,5 +22,17 @@
     <li><strong>Hinta</strong> {{tuote.price}}</li>
     <li><strong>Kuvaus</strong> {{tuote.description}}</li>
     <li><strong>Tyyppi</strong> {{tuote.ptype}}</li>
+    {% if tuote.ptype == "Pizza" %}
+    <li><strong>Taytteet:</strong>
+    {% endif %}
+        <ul>
+            {% for tayte in taytteet %}
+            <li>
+                <a href="/pizza/tayte/{{tayte.id}}" >{{tayte.pname}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </li>
 </ul>
+
 {% endblock %}

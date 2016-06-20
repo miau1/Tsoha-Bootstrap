@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "macros/forms.html" as forms %}
+
+{% if message %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+
+<p>
+    {{forms.destroy_button("#{base_path}/tilaus/#{tilaus.id}/poista")}}
+    <a href="{{tilaus.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
+</p>
+
+<ul>
+    <li><strong>Asiakas</strong> {{tilaus.customer}}</li>
+    <li><strong>Puhelin</strong> {{tilaus.phone}}</li>
+    <li><strong>Osoite</strong> {{tilaus.address}}</li>
+    <li><strong>Tilausaika</strong> {{tilaus.ordered}}</li>
+    <li><strong>Toimitussaika</strong> {{tilaus.delivered}}</li>
+    <li><strong>Hinta</strong> {{tilaus.price}}</li>
+    <li><strong>Ongelmat</strong> {{tilaus.problems}}</li>
+    <li><strong>Alennus</strong> {{tilaus.discount}}</li>
+    <li>
+        <strong>Tuotteet</strong> 
+        <ul>
+            {% for tuote in tuotteet %}
+            <li>
+              <a href="/pizza/tuote/{{tuote.id}}" >{{tuote.pname}}</a>, {{tuote.price}}e
+            </li>
+            {% endfor %}
+        </ul>
+    </li>
+</ul>
+
+{% endblock %}

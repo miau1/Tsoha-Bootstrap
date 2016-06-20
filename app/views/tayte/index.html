@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Täytteet</h1>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nimi</th>
+            <th>Kuvaus</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for tayte in taytteet %}
+        <tr>
+            <td><a href="{{base_path}}/tayte/{{tayte.id}}">{{tayte.pname}}</td>
+            <td>{{tayte.description}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Luokka kuvaa sovelluksen kirjautuvia käyttäjiä eli työntekijöitä.
+ */
 class User extends BaseModel {
 
     public $id, $fullname, $wposition, $location, $password;
@@ -8,6 +11,25 @@ class User extends BaseModel {
         parent::__construct($attributes);
 //        $this->validators = array('validate_number', 'validate_name', 'validate_price',
 //            'validate_description', 'validate_type');
+    }
+    
+    public static function all() {
+        $query = DB::connection()->prepare('SELECT * FROM Tyontekija');
+        $query->execute();
+        $rows = $query->fetchAll();
+        $tyontekijat = array();
+        
+        foreach ($rows as $row) {
+            $tyontekijat[] = new User(array(
+                'id' => $row['id'],
+                'fullname' => $row['fullname'],
+                'wposition' => $row['wposition'],
+                'location' => $row['location'],
+                'password' => $row['password']
+            ));
+        }
+        
+        return $tyontekijat;
     }
     
     public static function find($id) {
@@ -21,7 +43,7 @@ class User extends BaseModel {
                 'fullname' => $row['fullname'],
                 'wposition' => $row['wposition'],
                 'location' => $row['location'],
-                'password' => $row['password'],
+                'password' => $row['password']
             ));
             
             return $user;
