@@ -14,15 +14,24 @@ class TilausController extends BaseController {
     public static function show($id) {
         self::check_logged_in();
         $tilaus = Tilaus::find($id);
+        $tyont = User::find($tilaus->worker_id);
         $tuotteet = Tilaus::tuotteet($id);
-        View::make('tilaus/show.html', array('tilaus' => $tilaus, 'tuotteet' => $tuotteet));
+        View::make('tilaus/show.html', array('tilaus' => $tilaus, 'tuotteet' => $tuotteet, 'tyont' => $tyont));
+    }
+    
+    public static function kuitti($id) {
+        self::check_logged_in();
+        $tilaus = Tilaus::find($id);
+        $loppusumma = (int)$tilaus->price - (int)$tilaus->discount;
+        $tuotteet = Tilaus::tuotteet($id);
+        View::make('tilaus/kuitti.html', array('tilaus' => $tilaus, 'tuotteet' => $tuotteet, 'tilaus' => $tilaus, 'loppusumma' => $loppusumma));
     }
 
     public static function create() {
         $tuotteet = Tuote::all();
         View::make('tilaus/new.html', array('tuotteet' => $tuotteet));
     }
-   
+
     /**
      * Tilauksen teon yhteydessä saadaan myös lista tilaukseen kuuluvista tuotteista,
      * joista jokaisen id:n perusteella lisätään Tilaustuote-liitostauluun uusi
@@ -32,31 +41,39 @@ class TilausController extends BaseController {
         $params = $_POST;
 
         $tuotteet = $params['tuotteet'];
+        $hinta = 0;
+        $tilatut = array();
+        foreach ($tuotteet as $id){
+            if ((int)$id!=0){
+                $tuote = Tuote::find($id);
+                $hinta = $hinta + (int)$tuote->price;
+                $tilatut[] = $tuote;
+            }
+        }
         $attributes = array(
             'customer' => $params['customer'],
             'phone' => $params['phone'],
             'address' => $params['address'],
-            'price' => $params['price'],
+            'price' => $hinta,
             'problems' => $params['problems'],
             'discount' => $params['discount'],
         );
 
-
         $tilaus = new Tilaus($attributes);
 
         $errors = $tilaus->errors();
-        if (count($errors) == 0 && count($tuotteet)>1) {
+        if (count($errors) == 0 && count($tuotteet) > 1) {
             $tilaus->save();
-            
+
             foreach ($tuotteet as $tuote) {
-                if ((int) $tuote!=0){
+                if ((int) $tuote != 0) {
                     $tilaustuote = new Tilaustuote(array('tilaus_id' => $tilaus->id, 'tuote_id' => (int) $tuote));
                     $tilaustuote->save();
                 }
             }
-            Redirect::to('/', array('message' => 'Tilaus tehty!'));
+            View::make('tilaus/yhteenveto.html', array('message' => 'Tilaus tehty!', 'attributes' => $attributes, 'tilatut' => $tilatut));
         } else {
-            if (count($tuotteet) == 1){
+            if (count($tuotteet) == 1) {
                 $errors[] = 'Valitse vähintään yksi tuote!';
             }
             View::make('tilaus/new.html', array('errors' => $errors, 'attributes' => $attributes, 'tuotteet' => Tuote::all()));
@@ -67,8 +84,9 @@ class TilausController extends BaseController {
         self::check_logged_in();
         $tilaus = Tilaus::find($id);
         $tuotteet = Tilaus::tuotteet($id);
-        $kaikki_tuotteet = Tuote::all();
-        View::make('tilaus/edit.html', array('attributes' => $tilaus, 'tuotteet' => $tuotteet, 'kaikki_tuotteet' => $kaikki_tuotteet));
+        $kaikki_tuotteet = Tilaus::kuulumattomatTuotteet($id);
+        $tyont = User::all();
+        View::make('tilaus/edit.html', array('attributes' => $tilaus, 'tuotteet' => $tuotteet, 'kaikki_tuotteet' => $kaikki_tuotteet, 'tyont' => $tyont));
     }
 
     /**
@@ -80,29 +98,37 @@ class TilausController extends BaseController {
     public static function update($id) {
         self::check_logged_in();
         $params = $_POST;
-
+        
+        $bool = $params['toimit'];
         $tuotteet = $params['tuotteet'];
+        $hinta = (int)$params['price'];
+        foreach ($tuotteet as $tid){
+            if ((int)$tid!=0){
+                $tuote = Tuote::find($tid);
+                $hinta = $hinta + (int)$tuote->price;
+            }
+        }
         $attributes = array(
             'id' => $id,
+            'worker_id' => $params['tyont'],
             'customer' => $params['customer'],
             'phone' => $params['phone'],
             'address' => $params['address'],
             'ordered' => $params['ordered'],
             'delivered' => $params['delivered'],
-            'price' => $params['price'],
+            'price' => $hinta,
             'problems' => $params['problems'],
             'discount' => $params['discount']
         );
 
         $tilaus = new Tilaus($attributes);
         $errors = $tilaus->errors();
-
         if (count($errors) > 0) {
-            View::make('tilaus/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+            View::make('tilaus/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'tuotteet' => $tilaus->tuotteet($id), 'kaikki_tuotteet' => Tilaus::kuulumattomatTuotteet($id), 'tyont' =>User::all()));
         } else {
-            $tilaus->update();
+            $tilaus->update($bool);
             foreach ($tuotteet as $tuote) {
-                if ((int) $tuote!=0){
+                if ((int) $tuote != 0) {
                     $tilaustuote = new Tilaustuote(array('tilaus_id' => $tilaus->id, 'tuote_id' => (int) $tuote));
                     $tilaustuote->save();
                 }

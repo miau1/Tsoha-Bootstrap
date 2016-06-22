@@ -14,12 +14,13 @@
 </p>
 
 <ul>
+    <li><strong>Vastuutyöntekijä</strong> {{tyont.fullname}}</li>
     <li><strong>Asiakas</strong> {{tilaus.customer}}</li>
     <li><strong>Puhelin</strong> {{tilaus.phone}}</li>
     <li><strong>Osoite</strong> {{tilaus.address}}</li>
     <li><strong>Tilausaika</strong> {{tilaus.ordered}}</li>
     <li><strong>Toimitussaika</strong> {{tilaus.delivered}}</li>
-    <li><strong>Hinta</strong> {{tilaus.price}}</li>
+    <li><strong>Hinta</strong> {{tilaus.price}} cent</li>
     <li><strong>Ongelmat</strong> {{tilaus.problems}}</li>
     <li><strong>Alennus</strong> {{tilaus.discount}}</li>
     <li>
@@ -27,11 +28,12 @@
         <ul>
             {% for tuote in tuotteet %}
             <li>
-              <a href="/pizza/tuote/{{tuote.id}}" >{{tuote.pname}}</a>, {{tuote.price}}e
+              <a href="/pizza/tuote/{{tuote.id}}" >{{tuote.pname}}</a>, {{tuote.price}} cent
             </li>
             {% endfor %}
         </ul>
     </li>
+    <li><a href="{{tilaus.id}}/kuitti" class="btn btn-default">Tulosta kuitti</a></li>
 </ul>
 
 {% endblock %}

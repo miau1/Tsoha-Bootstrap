@@ -62,5 +62,6 @@ class Tayte extends BaseModel{
         return $pizzat;
     }
     
+    
 }
 

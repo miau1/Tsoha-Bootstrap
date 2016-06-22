@@ -20,6 +20,17 @@
 </div>
 {% endif %}
 
+<div>
+    <label>Täytteet</label>
+    <ul>
+    {% for tayte in pizzan_taytteet %}
+    <li>
+        {{tayte.pname}} {{forms.destroy_button("#{base_path}/pizzatayte/#{attributes.id}/#{tayte.id}/poista")}}
+    </li>
+    {% endfor %}
+    </ul>
+</div>
+
 <form method="post" action="{{base_path}}/tuote/{{attributes.id}}/muokkaa">
     <div class="form-group">
         <label>Numero</label>
@@ -53,7 +64,7 @@
         <label>Lisää täytteitä (paina ctrl pohjaan)</label>
         <select class="form-control" name="taytteet[]" multiple="">
             {% for tayte in kaikki_taytteet %}
-            <option value="{{tayte.id}}">{{tayte.pname}}</option>
+                <option value="{{tayte.id}}">{{tayte.pname}}</option>
             {% endfor %}
         </select>
     </div>
@@ -61,14 +72,5 @@
         <button type="submit" class="btn btn-primary">Tallenna</button>
     </div>
 </form>
-<div>
-        <label>Poista täytteitä</label>
-        <ul>
-        {% for tayte in taytteet %}
-        <li>
-            {{tayte.pname}} {{forms.destroy_button("#{base_path}/pizzatayte/#{attributes.id}/#{tayte.id}/poista")}}
-        </li>
-        {% endfor %}
-        </ul>
-    </div>
+
 {% endblock %}

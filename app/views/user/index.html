@@ -8,6 +8,7 @@
             <th>Nimi</th>
             <th>Asema</th>
             <th>Sijainti</th>
+            <th>Päivitä sijainti</th>
         </tr>
     </thead>
 
@@ -17,6 +18,17 @@
             <td>{{tyontekija.fullname}}</td>
             <td>{{tyontekija.wposition}}</td>
             <td>{{tyontekija.location}}</td>
+            <td>
+                <form method="post" action="{{base_path}}/tyontekija/{{tyontekija.id}}/muokkaa">
+                    <input type="hidden" name="fullname" value="{{tyontekija.fullname}}">
+                    <input type="hidden" name="wposition" value="{{tyontekija.wposition}}">
+                    <select name="location" >
+                        <option value="ravintolassa">Ravintolassa</option>
+                        <option value="toimittamassa">Toimittamassa</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Tallenna</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

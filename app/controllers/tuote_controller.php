@@ -61,9 +61,9 @@ class TuoteController extends BaseController {
     public static function edit($id) {
         self::check_logged_in();
         $tuote = Tuote::find($id);
-        $taytteet = Tuote::taytteet($id);
-        $kaikki_taytteet = Tayte::all();
-        View::make('tuote/edit.html', array('attributes' => $tuote, 'taytteet' => $taytteet, 'kaikki_taytteet' => $kaikki_taytteet));
+        $pizzan_taytteet = Tuote::taytteet($id);
+        $kaikki_taytteet = Tuote::kuulumattomatTaytteet($id);
+        View::make('tuote/edit.html', array('attributes' => $tuote, 'pizzan_taytteet' => $pizzan_taytteet, 'kaikki_taytteet' => $kaikki_taytteet));
     }
 
     /**
@@ -91,7 +91,7 @@ class TuoteController extends BaseController {
         $errors = $tuote->errors();
 
         if (count($errors) > 0) {
-            View::make('tuote/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+            View::make('tuote/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'pizzan_taytteet' => Tuote::taytteet($id), 'kaikki_taytteet' => Tuote::kuulumattomatTaytteet($id)));
         } else {
             $tuote->update();
             if ($tuote->ptype == 'Pizza'){

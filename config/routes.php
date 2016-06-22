@@ -52,6 +52,10 @@ $routes->get('/tyontekija', function() {
     UserController::index();
 });
 
+$routes->post('/tyontekija/:id/muokkaa', function($id) {
+    UserController::update($id);
+});
+
 $routes->get('/tayte', function() {
     TayteController::index();
 });
@@ -74,6 +78,10 @@ $routes->get('/tilaus/lisaa', function() {
 
 $routes->get('/tilaus/:id', function($id) {
     TilausController::show($id);
+});
+
+$routes->get('/tilaus/:id/kuitti', function($id) {
+    TilausController::kuitti($id);
 });
 
 $routes->get('/tilaus/:id/muokkaa', function($id) {

@@ -14,7 +14,7 @@ class User extends BaseModel {
     }
     
     public static function all() {
-        $query = DB::connection()->prepare('SELECT * FROM Tyontekija');
+        $query = DB::connection()->prepare('SELECT * FROM Tyontekija ORDER BY fullname');
         $query->execute();
         $rows = $query->fetchAll();
         $tyontekijat = array();
@@ -74,4 +74,10 @@ class User extends BaseModel {
         }
     }
 
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Tyontekija SET fullname=:fullname, wposition=:wposition, location=:location WHERE id = :id RETURNING id');
+        $query->execute(array('id' => $this->id, 'fullname' => $this->fullname, 'wposition' => $this->wposition, 'location' => $this->location));
+        $row = $query->fetch();
+        $this->id = $row['id'];
+    }
 }

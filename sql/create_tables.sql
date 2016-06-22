@@ -13,7 +13,7 @@ CREATE TABLE Tuote(
     id SERIAL PRIMARY KEY,
     pnumber int NOT NULL,
     pname varchar(20) NOT NULL,
-    price numeric NOT NULL,
+    price integer NOT NULL,
     description varchar(200) NOT NULL,
     ptype varchar(200)NOT NULL
 );
@@ -33,13 +33,12 @@ CREATE TABLE Pizzatayte(
 CREATE TABLE Tilaus(
     id SERIAL PRIMARY KEY,
     worker_id INTEGER REFERENCES Tyontekija(id),
-    tuotteet INTEGER[], 
     customer varchar(50) NOT NULL,
     phone varchar(20) NOT NULL,
     address varchar(50) NOT NULL,
     ordered timestamp NOT NULL,
     delivered timestamp,
-    price numeric NOT NULL,
+    price integer NOT NULL,
     problems varchar(200),
     discount numeric
 );

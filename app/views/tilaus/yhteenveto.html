@@ -1,16 +1,33 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<h1>Yhteenveto</h1>
+
+{% if message %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+
+<p>Ota tästä talteen tilauksesi tiedot.</p>
+
+    <div>
+        <label>Nimi</label>: {{attributes.customer}}
+    </div>
+    <div>
+        <label>Puhelinnumero</label>: {{attributes.phone}}
+    </div>
+    <div>
+        <label>Osoite</label>: {{attributes.address}}
+    </div>
+    <div >
+        <label>Tuotteet </label>
+        <ul>
+            {% for tuote in tilatut %}
+            <li>{{tuote.pname}}, {{tuote.price}} cent</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <label>Kokonaishinta</label>: {{attributes.price}} cent
+    </div>
+{% endblock %}

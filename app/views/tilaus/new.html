@@ -32,15 +32,12 @@
         <label>Tuotteet (paina ctrl pohjaan)</label>
         <select class="form-control" name="tuotteet[]" multiple="">
             {% for tuote in tuotteet %}
-            <option value="{{tuote.id}}">{{tuote.pname}}, {{tuote.price}}e</option>
+            <option value="{{tuote.id}}">{{tuote.pname}}, {{tuote.price}} cent</option>
             {% endfor %}
         </select>
     </div>
     <div class="form-group">
-        <input type="hidden" class="form-control" type="text" name="price" value="10">
-    </div>
-    <div class="form-group">
-        <input type="hidden" class="form-control" type="text" name="problems" value="Ei onglemia">
+        <input type="hidden" class="form-control" type="text" name="problems" value="Ei ongelmia">
     </div>
     <div class="form-group">
         <input type="hidden" class="form-control" type="text" name="discount" value="0">

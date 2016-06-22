@@ -74,6 +74,26 @@ class Tuote extends BaseModel {
         }
         return $taytteet;
     }
+    
+    /**
+     * Palauttaa kaikki täytteet, jotka eivät ole valitussa pizzassa.
+     * 
+     * @param type $id Pizzan id
+     * @return \Tayte Täytteet taulukkona
+     */
+    public static function kuulumattomatTaytteet($id) {
+        $query = DB::connection()->prepare('SELECT Tayte.id, Tayte.pname FROM Tayte WHERE Tayte.id NOT IN (SELECT Tayte.id FROM Pizzatayte, Tayte WHERE Pizzatayte.pizza_id = :id AND Tayte.id = Pizzatayte.tayte_id)');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $taytteet = array();
+        foreach ($rows as $row) {
+            $taytteet[] = new Tayte(array(
+                'id' => $row['id'],
+                'pname' => $row['pname']
+            ));
+        }
+        return $taytteet;
+    }
 
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Tuote (pnumber, pname, price, description, ptype) VALUES (:pnumber, :pname, :price, :description, :ptype) RETURNING id');
@@ -115,7 +135,7 @@ class Tuote extends BaseModel {
     public function validate_price() {
         $errors = array();
         if (!$this->validate_num($this->price)) {
-            $errors[] = 'Hinnan tulee olla numero! Esim. "7" tai "2.5".';
+            $errors[] = 'Hinnan tulee olla kokonaisluku!';
         }
         return $errors;
     }
