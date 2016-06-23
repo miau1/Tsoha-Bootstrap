@@ -25,7 +25,7 @@
     <ul>
     {% for tuote in tuotteet %}
     <li>
-        {{tuote.pname}} {{forms.destroy_button("#{base_path}/tilaustuote/#{attributes.id}/#{tuote.id}/poista")}}
+        {{tuote.pname}}, {{tuote.price}} {{forms.destroy_button("#{base_path}/tilaustuote/#{attributes.id}/#{tuote.id}/poista")}}
     </li>
     {% endfor %}
     </ul>
@@ -59,7 +59,7 @@
     <div class="form-group">
         <label>Toimitusaika</label>
         <input class="form-control" type="text" name="delivered" value="{{attributes.delivered}}" readonly>
-        <input type="radio" name="toimit" value="true"> Päivitä toimitus aika<br>
+        <input type="radio" name="toimit" value="true"> Päivitä toimitusaika<br>
         <input type="radio" name="toimit" value="false" checked="checked">  Älä päivitä
     </div>
     <div class="form-group">
@@ -81,7 +81,7 @@
         <label>Lisää tuotteita (paina ctrl pohjaan)</label>
         <select class="form-control" name="tuotteet[]" multiple="">
             {% for tuote in kaikki_tuotteet %}
-            <option value="{{tuote.id}}">{{tuote.pname}}, {{tuote.price}}e</option>
+            <option value="{{tuote.id}}">{{tuote.pname}}, {{tuote.price}} cent</option>
             {% endfor %}
         </select>
     </div>
